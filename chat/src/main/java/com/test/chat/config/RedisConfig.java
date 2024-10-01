@@ -71,18 +71,19 @@ public class RedisConfig {
         return new ChannelTopic("/chatRoom");
     }
 
-//    @Bean
-//    public RedisMessageListenerContainer redisMessageListener(RedisConnectionFactory connectionFactory,
-//                                                              MessageListenerAdapter listenerAdapter,
-//                                                              ChannelTopic channelTopic) {
-//        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-//        // listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다.
-//        container.setConnectionFactory(connectionFactory);
-//        // 메시지 수신 준비 + 구독할 채널 설정
-//        // listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다. 메시지 리스너 등록
-////        container.addMessageListener(listenerAdapter, channelTopic);
-//        return container;
-//    }
+    // 어차피 안씀
+    @Bean
+    public RedisMessageListenerContainer redisMessageListener(RedisConnectionFactory connectionFactory,
+                                                              MessageListenerAdapter listenerAdapter,
+                                                              ChannelTopic channelTopic) {
+        RedisMessageListenerContainer container = new RedisMessageListenerContainer();
+        // listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다.
+        container.setConnectionFactory(connectionFactory);
+        // 메시지 수신 준비 + 구독할 채널 설정
+        // listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다. 메시지 리스너 등록
+//        container.addMessageListener(listenerAdapter, channelTopic);
+        return container;
+    }
 
     @Bean
     public ChannelTopic channelTopic() {
