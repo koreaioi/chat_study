@@ -33,8 +33,8 @@ public class PublishMessage implements Serializable {
     private String content;
 
     // LocalDateTime 타입에 대한 직렬화, 역직렬화 도우미 선언
-    @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime createAt;
+//    @JsonSerialize(using = LocalDateTimeSerializer.class)
+//    @JsonDeserialize(using = LocalDateDeserializer.class)
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+//    private LocalDateTime createAt;
 }

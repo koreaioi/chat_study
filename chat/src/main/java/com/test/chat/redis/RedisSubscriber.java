@@ -44,14 +44,15 @@ public class RedisSubscriber implements MessageListener{
     @Override
     public void onMessage(Message message, byte[] pattern) {
         // 역 직렬화
-        String message1 = redisTemplate.getStringSerializer().deserialize(message.getBody());
+        String tmpMessage = redisTemplate.getStringSerializer().deserialize(message.getBody());
 
-        log.info("publish 전 message: {}", message1);
+        log.info("publish 전 message: {}", tmpMessage);
         PublishMessage publishMessage = null;
         try {
 //            obejctMapper.registerModule(new JavaTimeModule());
-            publishMessage = obejctMapper.readValue(message1, PublishMessage.class);
-            messageTemplate.convertAndSend("/sub/chats" + publishMessage.getRoomId(), publishMessage);
+            publishMessage = obejctMapper.readValue(tmpMessage, PublishMessage.class);
+            // roomId와 publishMessage를 같은 roomId 구독자들에게 보낸다.
+            messageTemplate.convertAndSend("/sub/chats/" + publishMessage.getRoomId(), publishMessage);
             // PublishMessage를 구독자(sub한 사람들)에게 메시지를 보낸다.
             log.info("publish 후 message: {}", publishMessage.getContent());
         } catch (JsonProcessingException e) {

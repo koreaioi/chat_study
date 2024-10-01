@@ -38,6 +38,9 @@ public class RoomController {
         Long roomId = roomService.createRoom(postDto);
 
         ChannelTopic topic = new ChannelTopic("/sub/chats/" + roomId);
+        // 프론트에서는 리스너 등록을 하지 못함.
+        // 즉 /sub/chats/25 라고할때 25번 토픽에 메시지 리스너를 할당해줘야함.
+        // 이 과정없이 프론트에서 바로 전송하면 Redis에는 메시지 리스너가 없기에 publish한 메시지를 받을 수 없음.
         redisMessageListener.addMessageListener(redisSubscriber, topic);
 
         URI location = UriComponentsBuilder.newInstance()
@@ -46,5 +49,16 @@ public class RoomController {
                 .toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/enter")
+    public ResponseEntity testEnterRoom(@RequestBody Long roomId) {
+
+        ChannelTopic topic = new ChannelTopic("/sub/chats/" + roomId);
+        redisMessageListener.addMessageListener(redisSubscriber, topic);
+
+        log.info("Enter in" + roomId + " room");
+
+        return ResponseEntity.ok("Enter in" + roomId + " room");
     }
 }

@@ -27,11 +27,15 @@ public class MessageController {
     @MessageMapping("/chats/messages/{room-id}")
     public void message(@DestinationVariable("room-id") Long roomId, MessageDto messageDto) {
         PublishMessage publishMessage =
-                new PublishMessage(messageDto.getRoomId(), messageDto.getSenderId(), messageDto.getContent(), LocalDateTime.now());
+                new PublishMessage(messageDto.getRoomId(), messageDto.getSenderId(), messageDto.getContent());
 
         ChannelTopic topic = new ChannelTopic("/sub/chats/" + roomId);
 
         redisTemplate.convertAndSend(topic.getTopic(), publishMessage);
+
+        // 보낸 메시지를 몽고 디비에 저장하는 로직 추가해야함.
+        // 보낸 메시지를 채팅방의 마지막 메시지로 저장하는 로직 추가
+
         log.info("Redis 서버에 메시지 전송 완료");
     }
 

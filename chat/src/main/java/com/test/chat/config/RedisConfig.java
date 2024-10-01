@@ -77,7 +77,7 @@ public class RedisConfig {
                                                               MessageListenerAdapter listenerAdapter,
                                                               ChannelTopic channelTopic) {
         RedisMessageListenerContainer container = new RedisMessageListenerContainer();
-        // 이 설정은 listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다.
+        // listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다.
         container.setConnectionFactory(connectionFactory);
         // 메시지 수신 준비 + 구독할 채널 설정
         // listenerAdapter가 특정 채널(channelTopic)에서 발행된 메시지를 수신하도록 구성합니다. 메시지 리스너 등록
