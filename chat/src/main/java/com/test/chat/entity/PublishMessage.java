@@ -1,17 +1,12 @@
 package com.test.chat.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.antlr.v4.runtime.misc.NotNull;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -23,6 +18,7 @@ public class PublishMessage implements Serializable {
     * 따라서 Serializable 인터페이스를 상속한다.
     * */
 
+    @Serial
     private static final long serialVersionUID = 2082503192322391880L;
 
     @NotNull
