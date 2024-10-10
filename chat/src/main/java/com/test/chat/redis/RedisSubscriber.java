@@ -3,6 +3,7 @@ package com.test.chat.redis;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.test.chat.entity.PublishMessage;
+import com.test.chat.entity.PublishMessageResponseDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.Message;
@@ -10,6 +11,8 @@ import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 
 @Service
@@ -44,8 +47,9 @@ public class RedisSubscriber implements MessageListener{
         try {
 //            obejctMapper.registerModule(new JavaTimeModule());
             publishMessage = obejctMapper.readValue(tmpMessage, PublishMessage.class);
+            PublishMessageResponseDTO publishMessageResponseDTO = new PublishMessageResponseDTO(publishMessage);
             // roomId와 publishMessage를 같은 roomId 구독자들에게 보낸다.
-            messageTemplate.convertAndSend("/sub/chats/" + publishMessage.getRoomId(), publishMessage);
+            messageTemplate.convertAndSend("/sub/chats/" + publishMessage.getRoomId(), publishMessageResponseDTO);
             // PublishMessage를 구독자(sub한 사람들)에게 메시지를 보낸다.
             log.info("publish 후 message: {}", publishMessage.getContent());
         } catch (JsonProcessingException e) {

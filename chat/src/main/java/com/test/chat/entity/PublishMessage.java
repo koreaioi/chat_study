@@ -1,5 +1,10 @@
 package com.test.chat.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +12,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
@@ -28,7 +34,7 @@ public class PublishMessage implements Serializable {
     @NotNull
     private String content;
 
-    // LocalDateTime 타입에 대한 직렬화, 역직렬화 도우미 선언
+//     LocalDateTime 타입에 대한 직렬화, 역직렬화 도우미 선언
 //    @JsonSerialize(using = LocalDateTimeSerializer.class)
 //    @JsonDeserialize(using = LocalDateDeserializer.class)
 //    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

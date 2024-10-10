@@ -21,7 +21,7 @@ public class MessageDto implements Serializable {
 
     private String content;
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+//    public void setContent(String content) {
+//        this.content = content;
+//      }
 }
