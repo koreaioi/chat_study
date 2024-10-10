@@ -2,6 +2,7 @@ package com.test.chat.controller;
 
 import com.test.chat.Service.RoomService;
 import com.test.chat.dto.ChatDto;
+import com.test.chat.dto.RoomRequestDto;
 import com.test.chat.redis.RedisSubscriber;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -50,13 +51,14 @@ public class RoomController {
     }
 
     @PostMapping("/enter")
-    public ResponseEntity testEnterRoom(@RequestBody Long roomId) {
+    public ResponseEntity testEnterRoom(@RequestBody RoomRequestDto requestDto) {
+        Long roomId = requestDto.getRoomId();
 
         ChannelTopic topic = new ChannelTopic("/sub/chats/" + roomId);
         redisMessageListener.addMessageListener(redisSubscriber, topic);
 
         log.info("Enter in" + roomId + " room");
 
-        return ResponseEntity.ok("Enter in" + roomId + " room");
+        return ResponseEntity.ok("Enter in " + roomId + " room");
     }
 }
